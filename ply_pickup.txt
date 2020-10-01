@@ -1,0 +1,139 @@
+SESSION NAME:	ply_pickup
+SAMPLE RATE:	96000.000000
+BIT DEPTH:	32-bit float
+SESSION START TIMECODE:	00:00:00:00
+TIMECODE FORMAT:	30 Frame
+# OF AUDIO TRACKS:	9
+# OF AUDIO CLIPS:	6
+# OF AUDIO FILES:	5
+
+
+O N L I N E  F I L E S  I N  S E S S I O N
+Filename     	Location
+AUTH.3.wav   	Macintosh HD:Users:jonevans:Documents:Clients:Jon Evans:ply_pickup:Audio Files:
+AUTH_01.wav  	Macintosh HD:Users:jonevans:Documents:Clients:Jon Evans:ply_pickup:Audio Files:
+AUTH.3.1.wav 	Macintosh HD:Users:jonevans:Documents:Clients:Jon Evans:ply_pickup:Audio Files:
+AUTH_01.1.wav	Macintosh HD:Users:jonevans:Documents:Clients:Jon Evans:ply_pickup:Audio Files:
+DIA 1_01.wav 	Macintosh HD:Users:jonevans:Documents:Clients:Jon Evans:ply_pickup:Audio Files:
+
+
+O F F L I N E  F I L E S  I N  S E S S I O N
+Filename     	Location
+
+
+O N L I N E  C L I P S  I N  S E S S I O N
+CLIP NAME  	Source File
+AUTH       	AUTH.3.wav
+AUTH-01    	AUTH.3.1.wav
+AUTH_01    	AUTH_01.wav
+AUTH_01-01 	AUTH_01.1.wav
+DIA 1_01   	DIA 1_01.wav
+DIA 1_01-01	DIA 1_01.wav
+
+
+P L U G - I N S  L I S T I N G
+MANUFACTURER            	PLUG-IN NAME            	VERSION         	FORMAT          	STEMS                   	NUMBER OF INSTANCES
+Unknown (not available) 	UVIWorkstation          	(unknown)       	AAX Native      	Stereo / Stereo         	1 inactive
+                        	iZotope DDLY            	(unknown)       	AAX Native      	Stereo / Stereo         	2 inactive
+                        	L2                      	(unknown)       	AAX Native      	Stereo / Stereo         	1 inactive
+                        	S1 Imager               	(unknown)       	AAX Native      	Stereo / Stereo         	1 inactive
+                        	S1 MS Matrix            	(unknown)       	AAX Native      	Stereo / Stereo         	1 inactive
+                        	Doubler4                	(unknown)       	AAX Native      	Mono / Stereo           	3 inactive
+Avid                    	EQ3 1-Band              	20.3.0d163      	AAX Native      	Mono / Mono             	3 bypassed
+                        	EQ3 7-Band              	20.3.0d163      	AAX Native      	Stereo / Stereo         	5 active
+                        	EQ3 7-Band              	20.3.0d163      	AAX Native      	Mono / Mono             	3 active, 2 bypassed
+                        	Maxim                   	20.3.0d163      	AAX Native      	Stereo / Stereo         	5 active
+                        	D-Verb                  	20.3.0d163      	AAX Native      	Stereo / Stereo         	2 active
+                        	Trim                    	20.3.0d163      	AAX Native      	Mono / Mono             	4 active
+                        	Dyn3 Compressor/Limiter 	20.3.0d163      	AAX Native      	Stereo / Stereo         	1 active
+                        	Dyn3 Compressor/Limiter 	20.3.0d163      	AAX Native      	Mono / Mono             	3 active
+PSPaudioware            	PSP Xenon               	1.5.2           	AAX Native      	Stereo / Stereo         	1 active
+
+
+T R A C K  L I S T I N G
+TRACK NAME:	AUTH
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: Muted SoloSafe 
+PLUG-INS: 
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+TRACK NAME:	TIME COMPRESSION (Stereo)
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 	UVIWorkstation (stereo)
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+
+
+TRACK NAME:	DIA 1
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 	EQ3 1-Band (mono)	EQ3 7-Band (mono)	Dyn3 Compressor/Limiter (mono)	Doubler4 (mono/stereo)	Maxim (stereo)
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+1       	1       	DIA 1_01-01                   	          0:00	          0:03	          0:02	Unmuted
+
+
+TRACK NAME:	DIA 2
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 	EQ3 1-Band (mono)	EQ3 7-Band (mono)	Dyn3 Compressor/Limiter (mono)	Doubler4 (mono/stereo)	Maxim (stereo)
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+TRACK NAME:	DIA 3
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 	EQ3 1-Band (mono)	EQ3 7-Band (mono)	Dyn3 Compressor/Limiter (mono)	Doubler4 (mono/stereo)	Maxim (stereo)
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+TRACK NAME:	SFX 1 (Stereo)
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+
+
+TRACK NAME:	SFX 2 (Stereo)
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+
+
+TRACK NAME:	Music 1 (Stereo)
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+
+
+TRACK NAME:	Music 2 (Stereo)
+COMMENTS:	
+USER DELAY:	0 Samples
+STATE: 
+PLUG-INS: 
+CHANNEL 	EVENT   	CLIP NAME                     	START TIME    	END TIME      	DURATION      	STATE
+
+
+
+
+M A R K E R S  L I S T I N G
+#   	LOCATION     	TIME REFERENCE    	UNITS    	NAME                             	COMMENTS
+1   	0:30         	2880000           	Samples  	30 SEC                           	
