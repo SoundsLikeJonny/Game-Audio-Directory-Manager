@@ -1,33 +1,40 @@
 
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, Menu} = require('electron')
+
 
 function createWindow () {
-    window = new BrowserWindow({width: 800, height: 600})
+    window = new BrowserWindow({ 
+      width: 300, 
+      height: 600, 
+      titleBarStyle: 
+      'hidden', 
+      alwaysOnTop: true, 
+      darkTheme:true, 
+      movable:true
+      
+    })
+
     window.loadFile('index.html')
+    //window.setFullScreen(true);
+    //window.File.open()
+
 
 
     var python = require('child_process').spawn('python', ['./py/hello.py']);
+
 	  python.stdout.on('data',function(data){
-    console.log("data: ",data.toString('utf8'));
-	});
+      console.log("data: ",data.toString('utf8'));
+    });
+  }
 
+  try {
+    require('electron-reloader')(module)
+  } catch (_) {}
 
-var pyshell = require('python-shell');
-
-pyshell.run('./py/hello.py',  function  (err, results)  {
- if  (err)  throw err;
- console.log('hello.py finished.');
- console.log('results', results);
-});   	
-    
-}
-
-
-
-app.on('ready', createWindow)
+app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') {
       app.quit()
     }
-})
+  });
