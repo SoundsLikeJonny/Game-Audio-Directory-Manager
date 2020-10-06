@@ -11,15 +11,11 @@ function createWindow () {
       alwaysOnTop: true, 
       darkTheme:true, 
       movable:true
-      
     })
 
     window.loadFile('index.html')
-    //window.setFullScreen(true);
-    //window.File.open()
 
-
-
+    
     var python = require('child_process').spawn('python', ['./py/hello.py']);
 
 	  python.stdout.on('data',function(data){

@@ -24,7 +24,7 @@ class Dir():
             print('Directory not found')
 
         return file_list
-
+    
 
     def get_filenames(self, dir_) -> list:
         """
@@ -68,3 +68,4 @@ if __name__ == "__main__":
     file_names = dir_.get_filenames(directory)
     print(file_names)
     dir_.create_dir(file_names, directory, dest_path)
+
