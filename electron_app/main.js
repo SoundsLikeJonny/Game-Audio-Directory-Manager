@@ -27,6 +27,10 @@ function createWindow () {
     require('electron-reloader')(module)
   } catch (_) {}
 
+function display_out () {
+  document.getElementById("LoadProject").innerHTML = "YOU CLICKED ME!";
+}
+
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {

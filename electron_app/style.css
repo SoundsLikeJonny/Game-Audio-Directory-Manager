@@ -794,6 +794,14 @@ white-space: nowrap;
 
 /* Header */
 
+#drag-file {
+	background-color: rgb(64, 64, 139);
+	color:white;
+	text-align: center;
+	width:100px;
+	height:100px;
+}
+
 	#header-wrapper
 	{
 		background: midnightblue;
