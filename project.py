@@ -1,15 +1,22 @@
+# 
+# 
+# 
+# 
+
+
 import yaml
 import shutil
 import os
 
 class Project():
-
+    """[summary]
+    """
     def __init__(self):
-        self.project_path = None
+        self.project_path       = None
         self.wwise_project_path = None
-        self.ue4_project_path = None
-        self.audio_directory = None
-        self.project_name = None
+        self.ue4_project_path   = None
+        self.audio_directory    = None
+        self.project_name       = None
 
 
     def __repr__(self):
@@ -91,11 +98,11 @@ class Project():
     def create_project(self, project_name, project_path, wwise_project_path, ue4_project_path, audio_directory) -> None:
         """[summary]
         """
-        self.project_path = project_path
+        self.project_path       = project_path
         self.wwise_project_path = wwise_project_path
-        self.ue4_project_path = ue4_project_path
-        self.audio_directory = audio_directory
-        self.project_name = project_name
+        self.ue4_project_path   = ue4_project_path
+        self.audio_directory    = audio_directory
+        self.project_name       = project_name
 
         try:
             self.project_path = f'{self.project_path}/{self.project_name}'
@@ -118,16 +125,18 @@ class Project():
 
 
     def load_project(self):
-        # TODO: project = input(f'Select a project {os.listdir("./Projects")}')
+        # project = input(f'Select a project {os.listdir("./Projects")}')
         project = 'Survival'
 
+        self.project_path = f'./Projects/{project}'
 
-        project = self.get_yaml_data(f'./Projects/{project}/project.yaml')
+        project = self.get_yaml_data(f'{self.project_path}/project.yaml')
         
-        self.project_name = project['project_name']
+        self.project_name       = project['project_name']
         self.wwise_project_path = project['wwise_project_path']
-        self.ue4_project_path = project['ue4_project_path']
-        self.audio_directory = project['audio_directory']
+        self.ue4_project_path   = project['ue4_project_path']
+        self.audio_directory    = project['audio_directory']
+
 
 
 if __name__ == "__main__":

@@ -1,14 +1,54 @@
-from waapi import WaapiClient, CannotConnectToWaapiException
-from pprint import pprint
-
+from waapi import WaapiClient, CannotConnectToWaapiException, WaapiRequestFailed
 from pathlib import PureWindowsPath
 
+from dir_ import Dir
+
+
+class WAAPI(WaapiClient):
+    """
+    
+    """
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        print('WAAPI initialised')
+        
+
+    def __del__(self):
+        self.disconnect()
+        print('WAAPI closed safely')
+  
+
+    def get_wwise_mac_path(self, path: str) -> str:
+        """Convert path to Wwise for Mac
+
+        Args:
+            path (str): Any path in any format
+
+        Returns:
+            str: Windows path formatted for Wwise for mac
+        """
+        win_path = PureWindowsPath('Z:\\' + path)
+        win_path = win_path.joinpath()
+
+        return str(path)
+
+
+    def import_files_to_wwise(self, file_list: yaml, wwise_parent_dir: str):
+        """Takes a list of file paths 
+
+        Args:
+            file_list (list): [description]
+            wwise_parent_dir (str): [description]
+        """
+
+
+audioFile = "/Users/redfm/PycharmProjects/WwiseUE_Dir_Manager/New/Metal/Blades/Impact/Metal_Blades_Impact_01.wav"
 
 def main():
         
     try:
 
-        client = WaapiClient()
+        waapi = WAAPI(url='ws://127.0.0.1:8081/waapi')
 
         args = {
 
@@ -29,21 +69,20 @@ def main():
         ]
     }
 
-        result = client.call("ak.wwise.core.getInfo")
-
+        result = waapi.call("ak.wwise.core.getInfo")
+        
         print(result)
 
-        client.disconnect()
 
 
     except CannotConnectToWaapiException:
 
-        print("Could not connect to Waapi: Is Wwise running and Wwise Authoring API enabled?")
+        print(f'Unable to connect to the WAAPI.')
 
-audioFile = "/Users/redfm/PycharmProjects/WwiseUE_Dir_Manager/New/Metal/Blades/Impact/Metal_Blades_Impact_01.wav"
 
-win_path = PureWindowsPath(audioFile)
-win_path = win_path.r#.split(r'\\')
+        
+        
 
-print(win_path)
+# main()
+
 

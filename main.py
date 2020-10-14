@@ -4,42 +4,55 @@ import argparse
 
 
 def main():
+    
+    # parser = argparse.ArgumentParser(description='DAW -> Wwise -> UE4 Directory Manager!',
+    #                                     add_help=True)
+
+    # project = Project()
+
+    # parser.version = '1.0'
+    # parser.add_argument('--load', action='store', nargs='?', dest=project.load_project())
+    # parser.add_argument('-i', action='store', nargs='?', dest=project.audio_directory)
+    
+    # parser.add_argument('-p', action='store')
+
+    # parser.add_argument('-v', action='version')
+
+    # args = parser.parse_args()
+
+    # print(args)
 
     project = Project()
     project.load_project()
 
-    protools_session_folder = '/Users/jonevans/PycharmProjects/WwiseUE_Dir_Manager/Metal_Blades/'
+    action = None
+    while action != 0:
 
-    directory = Dir(project.audio_directory)
-    directory.display_dir()
+        actions =   f"""
+        1. Copy files to Audio Directory: {project.wwise_project_path}\n
+        2. \n
+        0. Exit\n
+        """
 
-    
-
-
-    """
-
-    dest_path = '/Users/jonevans/PycharmProjects/WwiseUE_Dir_Manager/New/'
-
-    dir_ = Dir(protools_session_folder)
-    directory = dir_.get_dir()
-    file_names = dir_.get_filenames(directory)
-    print(file_names)
-    dir_.create_dir(file_names, directory, dest_path)
+        action = int(input(f'\nProject {project.project_name}:\n' + actions))
 
 
+        if action == 1:
 
+            parent_dir = input('Paste parent directory: ')
 
-    project_name = 'Survival'
-    project_path = 'Projects'
-    wwise_project_path = '/Users/jonevans/Documents/Unreal Projects/Survival/Survival_WwiseProject/Survival_WwiseProject.wproj'
-    ue4_project_path = '/Users/jonevans/Documents/Unreal Projects/Survival'
-    audio_directory = '/Users/jonevans/Documents/Unreal Projects/Survival/Survival_WwiseProject/Originals/SFX'
+            _dir = Dir(parent_dir)
+            file_list  = _dir.get_dir()
+            file_list  = _dir.get_dir_files_paths(file_list)
+            file_list  = _dir.get_dir_list_by_file_name(file_list, project.wwise_project_path, project.get_project_abbreviations())
+            file_list  = _dir.create_dir(file_list)
+            _dir.display_dir(project.wwise_project_path)
 
-    project = Project()
-    project.create_project(project_name, project_path, audio_directory, wwise_project_path, ue4_project_path)
-    project.set_audio_directory('/Users/jonevans/Documents/Unreal Projects/Survival/')
-
-    """
+        
+            
+        if action == 2:
+            pass
+            
 
 if __name__ == '__main__':
     main()

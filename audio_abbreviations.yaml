@@ -1,5 +1,11 @@
 ---
 ply: player
 fts: footstep
-fly: foley
+fol: foley
 wpn: weapon
+mtl: metal
+enn: ennemy
+att: attack
+imp: impact
+grs: grass
+grv: gravel

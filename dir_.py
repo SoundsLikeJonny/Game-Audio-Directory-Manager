@@ -14,7 +14,9 @@ class Dir():
 
     def get_dir(self) -> dict:
         """Get all subdirectories from the parent directory.
-        return a dict with dirpath, dirnames, filenames
+
+        Returns:
+            dict: dict with dirpath, dirnames, filenames
         """
         file_list = {}
         if os.path.exists(self.dir_path):
@@ -27,45 +29,94 @@ class Dir():
         return file_list
     
 
-    def get_filenames(self, dir_) -> list:
-        """
+    def get_dir_files_paths(self, parent: str) -> list:
+        """Gets just the file names in a dir
+
+        Args:
+            parent ([type]): [description]
+
+        Returns:
+            list: [description]
         """
         files_list = []
-        for dir_index in range(len(dir_)):
-            files_list += dir_[dir_index]['filenames']
+        for dir_index in range(len(parent)):
+            for file in parent[dir_index]['filenames']:
+                if file[-4:] == '.wav' and file[0] != '.':
+                    files_list.append((parent[dir_index]['dirpath'], parent[dir_index]['filenames']))
 
-        return [file for file in files_list if file[-4:] == '.wav']
+        return files_list # [file for file in files_list if file[0][-4:] == '.wav' and file[0] != '.']
 
 
-    def create_dir(self, file_list: list, dir_: str, dir_destination: str) -> None:
-        """Creates a file directory according to the file names
+    def get_dir_list_by_file_name(self, file_tuple_list: list, dir_destination: str, abv_list={}) -> list:
+        """Creates a list of file directories according to the file names
+ 
+        Args:
+            file_list (list): List of files to be copied
+            dir_ (str): [description]
+            dir_destination (str): [description]
+
+        Returns:
+            list: 
         """
-        for file in file_list:
-            filename = file.split('_')
-            path = dir_destination
+        change_list = []
 
-            for folder in filename:
+        for path, file_list in file_tuple_list:
 
-                if folder[-4:] != '.wav':
-                    path += f'{folder}/'
+            for file in file_list:
 
-            #if not os.path.exists(path):
-            os.makedirs(path, exist_ok=True)
-            shutil.copy(dir_[0]['dirpath']+file, path)
-            print(path)
+                current_file_location = os.path.join(path,file)
+                assert os.path.exists(current_file_location)
+
+                parsed_filename = file.split('_')
+                new_dir = dir_destination
+
+                for folder in parsed_filename:
+
+                    if folder[-4:] != '.wav' :
+                        folder = abv_list[folder] if folder in abv_list else folder
+                        new_dir += f'{folder.title()}/'
+                    
+
+                change_list.append({'current_file_location': current_file_location, 'new_location': new_dir})
+
+        return change_list
 
     
-    def display_dir(self) -> None:
+    def create_dir(self, change_list: list, overwrite=False ) -> list:
+        """Create new directories and copy files into appropriate folders.
 
-        paths = DisplayablePath.make_tree(Path(self.dir_path))
+        Args:
+            change_list (list): dictionaries of directories to make and files to move
+
+        Returns:
+            list: All modified files
+        """
+        file_list = []
+
+        for change in change_list: 
+            path = os.path.join(change['new_location'], os.path.basename(change['current_file_location']))
+
+            if not overwrite and not os.path.exists(path):
+                os.makedirs(change['new_location'], exist_ok=True)
+                file_dest = shutil.copy(change['current_file_location'], change['new_location'])
+
+                file_list.append(file_dest)
+                print(f'-- Moved: {file_dest} --')
+
+        return file_list
+
+
+    def display_dir(self, parent_dir: str) -> None:
+        """Display directory tree
+
+        Args:
+            parent_dir (str): Parent directory
+        """
+        paths = DisplayablePath.make_tree(Path(parent_dir))
 
         for path in paths:
             if path.displayable()[-4:] != '.akd':
                 print(path.displayable())
-        
-
-
-
         
 
 if __name__ == "__main__":
