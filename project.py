@@ -8,6 +8,7 @@ import yaml
 import shutil
 import os
 
+
 class Project():
     """[summary]
     """
@@ -118,6 +119,9 @@ class Project():
             with open(f'{self.project_path}/project.yaml', 'w') as file:
                 yaml.dump(paths_dict, file, default_flow_style=False)
 
+            with open(f'{self.project_path}/wwise_audio_changelist.yaml', 'w') as file:
+                pass
+
             self.copy_abbreviations_dir(self.project_path)
         
         except:
@@ -144,11 +148,24 @@ class Project():
 
 
     def get_project_data(self) -> None:
-        data = self.get_yaml_data(f'{self.project_path}/project.yaml')
 
+        data = self.get_yaml_data(f'{self.project_path}/project.yaml')
+        
         return '\n'.join(data.values())
 
 
+    def set_wwise_audio_changelist(self, file_list: list):
+        
+        if file_list != []:
+            with open(f'{self.project_path}/wwise_audio_changelist.yaml', 'a') as file:
+                yaml.dump(file_list, file, default_flow_style=False)
+        
+        
+    def get_wwise_audio_changelist(self) -> list:
+
+        return self.get_yaml_data(f'{self.project_path}/wwise_audio_changelist.yaml')
+
+    
 
 if __name__ == "__main__":
     pass

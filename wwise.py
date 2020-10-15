@@ -1,5 +1,6 @@
 from waapi import WaapiClient, CannotConnectToWaapiException, WaapiRequestFailed
 from pathlib import PureWindowsPath
+import os
 
 from dir_ import Dir
 
@@ -30,25 +31,55 @@ class WAAPI(WaapiClient):
         win_path = PureWindowsPath('Z:\\' + path)
         win_path = win_path.joinpath()
 
-        return str(path)
+        return str(win_path)
 
 
-    def import_files_to_wwise(self, file_list: yaml, wwise_parent_dir: str):
+    def get_audio_import_list(self, file_list: list, abv_dict: dict) -> list:
+        
+        audio_import_list = []
+
+        for file in file_list:
+            
+            filename = os.path.basename(file)
+            object_path = '\\Actor-Mixer Hierarchy\\Default Work Unit'
+
+            for ww_folder in filename.split('_'):
+                
+                if ww_folder[-4:] != '.wav' :
+
+                    ww_folder = abv_dict[ww_folder] if ww_folder in abv_dict else ww_folder
+                    object_path += f'\\<Folder>{ww_folder.title()}'
+
+                else:
+
+                    object_path += f'\\<Sound>{filename.strip(".wav")}'
+
+
+            audio_import_list.append({'audioFile': f'{self.get_wwise_mac_path(file)}',
+                                        'objectPath': object_path})
+        
+        return audio_import_list
+
+
+
+# [
+#             {
+#                 "audioFile": "", 
+#                 "objectPath": "\\Actor-Mixer Hierarchy\\Default Work Unit\\"
+#             } 
+#         ]
+
+
+    def import_files_to_wwise(self, file_list: list, abv_dict: dict):
         """Takes a list of file paths 
 
         Args:
             file_list (list): [description]
             wwise_parent_dir (str): [description]
         """
+        audio_import_list = self.get_audio_import_list(file_list, abv_dict)
 
-
-audioFile = "/Users/redfm/PycharmProjects/WwiseUE_Dir_Manager/New/Metal/Blades/Impact/Metal_Blades_Impact_01.wav"
-
-def main():
-        
-    try:
-
-        waapi = WAAPI(url='ws://127.0.0.1:8081/waapi')
+        print(audio_import_list)
 
         args = {
 
@@ -56,33 +87,26 @@ def main():
         "default": {
             "importLanguage": "SFX"
         }, 
-        "imports": [
-            {
-                "audioFile": "/Users/redfm/PycharmProjects/WwiseUE_Dir_Manager/New/Metal/Blades/Impact/Metal_Blades_Impact_01.wav", 
-                "objectPath": "\\Actor-Mixer Hierarchy\\Default Work Unit\\<Sequence Container>Test 0\\<Sound SFX>My SFX 0"
-            } 
-        ],
-        "return": [
-            "id", 
-            "name", 
-            "path"
-        ]
-    }
+        "imports": audio_import_list,
+        }
 
-        result = waapi.call("ak.wwise.core.getInfo")
-        
-        print(result)
-
-
-
-    except CannotConnectToWaapiException:
-
-        print(f'Unable to connect to the WAAPI.')
-
+        self.call('ak.wwise.core.audio.import', args)
 
         
-        
 
-# main()
+
+
+def main():
+
+   pass
+    # try:
+
+    #     waapi = WAAPI(url='ws://127.0.0.1:8081/waapi')
+    #     result = waapi.call("ak.wwise.core.getInfo")       
+    #     print(result)
+
+    # except CannotConnectToWaapiException:
+
+    #     print(f'Unable to connect to the WAAPI.')
 
 

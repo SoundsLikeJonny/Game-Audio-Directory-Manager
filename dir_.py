@@ -9,7 +9,7 @@ class Dir():
 
     """
     def __init__(self, dir_path):
-        self.dir_path = str(Path(dir_path).as_uri())
+        self.dir_path = dir_path
 
 
     def get_dir(self) -> dict:
@@ -114,9 +114,13 @@ class Dir():
         """
         paths = DisplayablePath.make_tree(Path(parent_dir))
 
+        nice_dir = ''
+
         for path in paths:
             if path.displayable()[-4:] != '.akd':
-                print(path.displayable())
+                nice_dir += f'{path.displayable()}\n'
+
+        return nice_dir
         
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
 from project import Project
 from dir_ import Dir
+from wwise import WAAPI
 
 from tkinter import Tk, Button, Pack, filedialog, OptionMenu, StringVar, Label, filedialog, messagebox
 
@@ -12,7 +13,9 @@ def main():
     window_width = 800
     window_height = 300
     
-    root.geometry(f"{window_width}x{window_height}+{int((root.winfo_screenwidth()/2)-(window_width/2))}+{int((root.winfo_screenheight()/2)-(window_height/2))}")
+    root.geometry(f"{window_width}x{window_height}"\
+        f"+{int((root.winfo_screenwidth()/2)-(window_width/2))}"\
+            f"+{int((root.winfo_screenheight()/2)-(window_height/2))}")
 
     project = Project()
     
@@ -48,7 +51,6 @@ def main():
         def move_files_to_audio_dir():
 
             audio_files_parent = filedialog.askdirectory(title='Select the parent folder containing your files')
-            print(audio_files_parent)
 
             if audio_files_parent != '':
 
@@ -60,12 +62,43 @@ def main():
                     file_list  = _dir.get_dir_files_paths(file_list)
                     file_list  = _dir.get_dir_list_by_file_name(file_list, project.wwise_project_path, project.get_project_abbreviations())
                     file_list  = _dir.create_dir(file_list)
-                    _dir.display_dir(project.wwise_project_path)
+
+                    project.set_wwise_audio_changelist(file_list)
+                    
+        def import_to_wwise():
+
+            confirm = messagebox.askokcancel(message=f'Import files to Wwise?')
+
+            if confirm:
+                url='ws://127.0.0.1:8081/waapi'
+                
+                waapi_label = Label(root, text=f'Connecting to WAAPI on {url}...')
+                waapi_label.pack()
+
+                wwise = WAAPI(url=url)
+
+                waapi_label.configure(text=f'WAAPI connected on {url}')
+                waapi_label.pack()
+
+                wwise.import_files_to_wwise(project.get_wwise_audio_changelist(), project.get_project_abbreviations())
+
+
+                    
+
         
-        transfer_daw_files_label = Label(root, text='Transfer Audio Files from DAW to Audio Directory.\n(Generates directory according to file names)')
-        transfer_daw_files_label.pack()
-        transfer_daw_files_button = Button(root, text='Select Parent Directory...', command=move_files_to_audio_dir)
-        transfer_daw_files_button.pack()
+        move_files_to_audio_dir_label = Label(root, text='Transfer Audio Files from DAW to Audio Directory.\n'
+                                                        +'(Generates directory according to file names)')
+        move_files_to_audio_dir_label.pack()
+        move_files_to_audio_dir_button = Button(root, text='Select Parent Directory...', command=move_files_to_audio_dir)
+        move_files_to_audio_dir_button.pack()
+
+        import_to_wwise_label = Label(root, text='Import audio files to Wwise project from changelist')
+        import_to_wwise_label.pack()
+        import_to_wwise_button = Button(root, text='Import to Wwise', command=import_to_wwise)
+        import_to_wwise_button.pack()
+
+        
+        
         
     
     

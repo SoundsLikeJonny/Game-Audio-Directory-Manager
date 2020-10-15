@@ -4,8 +4,10 @@ fts: footstep
 fol: foley
 wpn: weapon
 mtl: metal
-enn: ennemy
+enn: enemy
 att: attack
 imp: impact
 grs: grass
 grv: gravel
+wod: wood
+wtr: water
