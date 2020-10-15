@@ -108,7 +108,7 @@ class Project():
             self.project_path = f'{self.project_path}/{self.project_name}'
             os.makedirs(self.project_path, exist_ok=True)
 
-            paths_dict = {'project_name': self.project_name, 
+            paths_dict = {  'project_name': self.project_name, 
                             'wwise_project_path': self.wwise_project_path,
                             'ue4_project_path'  : self.ue4_project_path,
                             'audio_directory'   : self.audio_directory}
@@ -124,9 +124,7 @@ class Project():
             assert 'Error creating project file'
 
 
-    def load_project(self):
-        # project = input(f'Select a project {os.listdir("./Projects")}')
-        project = 'Survival'
+    def load_project(self, project: str) -> None:
 
         self.project_path = f'./Projects/{project}'
 
@@ -136,6 +134,19 @@ class Project():
         self.wwise_project_path = project['wwise_project_path']
         self.ue4_project_path   = project['ue4_project_path']
         self.audio_directory    = project['audio_directory']
+
+
+    def get_projects(self) -> list:
+
+        files = os.listdir(f'./Projects/')
+
+        return [file for file in files if file[0] != '.']
+
+
+    def get_project_data(self) -> None:
+        data = self.get_yaml_data(f'{self.project_path}/project.yaml')
+
+        return '\n'.join(data.values())
 
 
 

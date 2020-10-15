@@ -1,58 +1,79 @@
 from project import Project
 from dir_ import Dir
-import argparse
+
+from tkinter import Tk, Button, Pack, filedialog, OptionMenu, StringVar, Label, filedialog, messagebox
 
 
 def main():
     
-    # parser = argparse.ArgumentParser(description='DAW -> Wwise -> UE4 Directory Manager!',
-    #                                     add_help=True)
+    root = Tk()
+    root.title('Game Audio Manager')
 
-    # project = Project()
-
-    # parser.version = '1.0'
-    # parser.add_argument('--load', action='store', nargs='?', dest=project.load_project())
-    # parser.add_argument('-i', action='store', nargs='?', dest=project.audio_directory)
+    window_width = 800
+    window_height = 300
     
-    # parser.add_argument('-p', action='store')
-
-    # parser.add_argument('-v', action='version')
-
-    # args = parser.parse_args()
-
-    # print(args)
+    root.geometry(f"{window_width}x{window_height}+{int((root.winfo_screenwidth()/2)-(window_width/2))}+{int((root.winfo_screenheight()/2)-(window_height/2))}")
 
     project = Project()
-    project.load_project()
-
-    action = None
-    while action != 0:
-
-        actions =   f"""
-        1. Copy files to Audio Directory: {project.wwise_project_path}\n
-        2. \n
-        0. Exit\n
-        """
-
-        action = int(input(f'\nProject {project.project_name}:\n' + actions))
+    
+    def front_page(open_project_page):
 
 
-        if action == 1:
+        all_projects = project.get_projects()
 
-            parent_dir = input('Paste parent directory: ')
+        load_project_label = Label(root, text='Load a Project')
+        load_project_label.pack()
+        selected_project = StringVar(root)
+        selected_project.set('--') # default value
+        selected_project_menu = OptionMenu(root, selected_project, *all_projects)
+        selected_project_menu.pack()
+        load_button = Button(root, text="Load",command=lambda: [load_project(), 
+                                                            load_button.destroy(),
+                                                            selected_project_menu.destroy(),
+                                                            load_project_label.destroy(),
+                                                            open_project_page()])
 
-            _dir = Dir(parent_dir)
-            file_list  = _dir.get_dir()
-            file_list  = _dir.get_dir_files_paths(file_list)
-            file_list  = _dir.get_dir_list_by_file_name(file_list, project.wwise_project_path, project.get_project_abbreviations())
-            file_list  = _dir.create_dir(file_list)
-            _dir.display_dir(project.wwise_project_path)
+        load_button.pack()
 
+
+        def load_project():
+            project.load_project(selected_project.get())
+            load_project_label = Label(root, text=project.get_project_data())
+            load_project_label.pack()
+
+
+    def open_project_page():
+
+
+        def move_files_to_audio_dir():
+
+            audio_files_parent = filedialog.askdirectory(title='Select the parent folder containing your files')
+            print(audio_files_parent)
+
+            if audio_files_parent != '':
+
+                confirm = messagebox.askokcancel(message=f'Use files from "{audio_files_parent}" ?')
+                
+                if confirm:
+                    _dir = Dir(audio_files_parent)
+                    file_list  = _dir.get_dir()
+                    file_list  = _dir.get_dir_files_paths(file_list)
+                    file_list  = _dir.get_dir_list_by_file_name(file_list, project.wwise_project_path, project.get_project_abbreviations())
+                    file_list  = _dir.create_dir(file_list)
+                    _dir.display_dir(project.wwise_project_path)
         
-            
-        if action == 2:
-            pass
-            
+        transfer_daw_files_label = Label(root, text='Transfer Audio Files from DAW to Audio Directory.\n(Generates directory according to file names)')
+        transfer_daw_files_label.pack()
+        transfer_daw_files_button = Button(root, text='Select Parent Directory...', command=move_files_to_audio_dir)
+        transfer_daw_files_button.pack()
+        
+    
+    
+    front_page(open_project_page)
+
+
+    root.mainloop()
 
 if __name__ == '__main__':
     main()
+

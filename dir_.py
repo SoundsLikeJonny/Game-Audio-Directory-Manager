@@ -1,15 +1,15 @@
 import os
 import pathlib
 import shutil
-from DisplayablePath import DisplayablePath
 from pathlib import Path
+from DisplayablePath import DisplayablePath
 
 class Dir():
     """
 
     """
     def __init__(self, dir_path):
-        self.dir_path = dir_path
+        self.dir_path = str(Path(dir_path).as_uri())
 
 
     def get_dir(self) -> dict:
@@ -68,8 +68,8 @@ class Dir():
                 assert os.path.exists(current_file_location)
 
                 parsed_filename = file.split('_')
-                new_dir = dir_destination
 
+                new_dir = dir_destination
                 for folder in parsed_filename:
 
                     if folder[-4:] != '.wav' :
