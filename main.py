@@ -3,6 +3,7 @@ from dir_ import Dir
 from wwise import WAAPI
 
 from tkinter import Tk, Button, Pack, filedialog, OptionMenu, StringVar, Label, filedialog, messagebox
+import tkinter
 
 
 def main():
@@ -21,7 +22,6 @@ def main():
     
     def front_page(open_project_page):
 
-
         all_projects = project.get_projects()
 
         load_project_label = Label(root, text='Load a Project')
@@ -31,12 +31,32 @@ def main():
         selected_project_menu = OptionMenu(root, selected_project, *all_projects)
         selected_project_menu.pack()
         load_button = Button(root, text="Load",command=lambda: [load_project(), 
-                                                            load_button.destroy(),
-                                                            selected_project_menu.destroy(),
-                                                            load_project_label.destroy(),
+                                                            destroy_main_page(),
                                                             open_project_page()])
 
         load_button.pack()
+
+
+        new_project_label = Label(root, text='Start A New Project')
+        new_project_label.pack()
+        new_project_button = Button(root, text="New Project",command=lambda: [new_project(), 
+                                                            destroy_main_page()])
+        new_project_button.pack()
+    
+
+        def destroy_main_page():
+            load_button.destroy()
+            selected_project_menu.destroy()
+            load_project_label.destroy()
+            new_project_button.destroy()
+            new_project_label.destroy()
+        
+
+        def new_project():
+            # TODO: Setup new project prompts and filedialog.askdirectory
+
+            
+            pass
 
 
         def load_project():
@@ -84,6 +104,12 @@ def main():
 
 
                     
+        def view_change_list(change_list):
+            change_list_str = ''
+            for file in change_list:
+                change_list_str += f'...{file[-40:]}\n\n' 
+
+            messagebox.showinfo(title='Audio Files to Move to Wwise', message=change_list_str)
 
         
         move_files_to_audio_dir_label = Label(root, text='Transfer Audio Files from DAW to Audio Directory.\n'
@@ -94,6 +120,13 @@ def main():
 
         import_to_wwise_label = Label(root, text='Import audio files to Wwise project from changelist')
         import_to_wwise_label.pack()
+        
+        if (change_list := project.get_wwise_audio_changelist()) != None:
+            change_list_label = Label(root, text='Changelist Available')
+            change_list_label.pack()
+            change_list_button = Button(root, text='See change list', command=lambda: view_change_list(change_list))
+            change_list_button.pack()
+
         import_to_wwise_button = Button(root, text='Import to Wwise', command=import_to_wwise)
         import_to_wwise_button.pack()
 
