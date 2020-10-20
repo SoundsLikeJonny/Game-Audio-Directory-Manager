@@ -1,7 +1,8 @@
-"""
-Courtesy of abstrus, https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python
-
-"""
+# 
+# This class is designed to help display file directories
+# 
+# Courtesy of abstrus, https://stackoverflow.com/questions/9727673/list-directory-tree-structure-in-python
+# 
 
 from pathlib import Path
 

@@ -1,8 +1,12 @@
 # 
+# project.py
+# 
+# Author: Jon Evans
+# Modified: Oct 19, 2020
+# 
+# The Project class works as the 
 # 
 # 
-# 
-
 
 import yaml
 import shutil
@@ -166,6 +170,6 @@ class Project():
         return self.get_yaml_data(f'{self.project_path}/wwise_audio_changelist.yaml')
 
     
-
+# Running as script not permitted
 if __name__ == "__main__":
     pass
