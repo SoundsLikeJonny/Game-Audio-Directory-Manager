@@ -1,3 +1,14 @@
+# 
+# dir_.py
+# 
+# Author: Jon Evans
+# Modified: Oct 19, 2020
+# 
+# The Dir class works as the engine for the 
+# 
+# 
+
+
 import os
 import pathlib
 import shutil
@@ -44,7 +55,7 @@ class Dir():
                 if file[-4:] == '.wav' and file[0] != '.':
                     files_list.append((parent[dir_index]['dirpath'], parent[dir_index]['filenames']))
 
-        return files_list # [file for file in files_list if file[0][-4:] == '.wav' and file[0] != '.']
+        return files_list
 
 
     def get_dir_list_by_file_name(self, file_tuple_list: list, dir_destination: str, abv_list={}) -> list:
@@ -123,6 +134,7 @@ class Dir():
         return nice_dir
         
 
+# Running as script not permitted
 if __name__ == "__main__":
     pass
 
