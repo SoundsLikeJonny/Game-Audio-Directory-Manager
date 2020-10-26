@@ -9,3 +9,5 @@ It then creates those folders (i.e. /Player/Footsteps/Grass/Walk/) under a given
 When importing to Wwise, it reads the change list, imports the files, and creates appropriate containers if specified
 
 Will include more options for Wwise containers in the future.
+
+![Demo CountPages alpha](https://github.com/SoundsLikeJonny/Game-Audio-Directory-Manager/blob/master/DAW-Wwise.gif)
