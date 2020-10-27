@@ -11,3 +11,6 @@ grs: grass
 grv: gravel
 wod: wood
 wtr: water
+inv: inventory
+piup: pickup
+equip: equipping

@@ -38,7 +38,7 @@ class WAAPI(WaapiClient):
         Returns:
             str: Windows path formatted for Wwise for mac
         """
-        win_path = PureWindowsPath(f'{path}')
+        win_path = PureWindowsPath(f'Y:/{path.strip("../")}')
         win_path = win_path.joinpath()
 
         return str(win_path)
@@ -60,6 +60,10 @@ class WAAPI(WaapiClient):
         for file in file_list:
             assert os.path.exists(file)
 
+            file = os.path.relpath(file)
+
+            assert os.path.exists(file)
+
             filename = os.path.basename(file)
             object_path = '\\Actor-Mixer Hierarchy\\Default Work Unit'
 
@@ -73,7 +77,8 @@ class WAAPI(WaapiClient):
                 else:
                     object_path += f'\\<Sound>{filename.strip(".wav")}'
 
-            audio_import_list.append({'audioFile': f'{os.path.basename(file)}',
+            assert os.path.exists(file)
+            audio_import_list.append({'audioFile': f'{self.get_wwise_mac_path(file)}',
                                         'objectPath': object_path})
         
         return audio_import_list
