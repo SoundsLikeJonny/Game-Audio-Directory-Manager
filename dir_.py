@@ -4,9 +4,8 @@
 # Author: Jon Evans
 # Modified: Oct 19, 2020
 # 
-# The Dir class works as the engine for the 
-# 
-# 
+# The Dir class works as the engine for the the Game Audio Manager app. 
+# Allows the user to automatically create audio directories, copying files into the lowest sub-path
 
 
 import os
