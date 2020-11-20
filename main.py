@@ -1,11 +1,12 @@
+# main.py
 # 
+# Author: Jon Evans
+# Modified: Oct 19, 2020
 # 
-# 
-# 
-# 
-# 
-# 
-# 
+# This document serves as the driver for the UI of the application.
+# The UI itself is written using tkinter, and the functionality of the app is 
+# controlled with the wwise.py, dir_.py and project.py documents
+#
 # 
 
 
