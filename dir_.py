@@ -17,7 +17,9 @@ from DisplayablePath import DisplayablePath
 
 class Dir():
     """
-
+    Provides functionality for modifying the filesystem. 
+    Recursively gets directories and filenames.
+    Created directories in the parent path.
     """
     def __init__(self, dir_path):
         self.dir_path = dir_path
