@@ -17,7 +17,7 @@ from dir_ import Dir
 
 class WAAPI(WaapiClient):
     """
-    
+    Establishes the connection with the WAAPI Client and inherits from the WaapiClient module
     """
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
