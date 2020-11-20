@@ -4,7 +4,7 @@
 # Author: Jon Evans
 # Modified: Oct 19, 2020
 # 
-# The Project class works as the 
+# The Project class works to create and load existing projects.
 # 
 # 
 
@@ -29,29 +29,14 @@ class Project():
 
 
     def set_wwise_project_path(self, dir_path: str) -> None:
-        """[summary]
-
-        Args:
-            project_path (str): [description]
-        """
         self.set_yaml_dict_value_by_key(self.project_path, 'wwise_project_path', dir_path)
 
 
     def set_ue4_project_path(self, dir_path: str) -> None:
-        """[summary]
-
-        Args:
-            project_path (str): [description]
-        """  
         self.set_yaml_dict_value_by_key(self.project_path, 'ue4_project_path', dir_path)        
 
 
-    def set_audio_directory(self, dir_path: str) -> None:
-        """[summary]
-
-        Args:
-            dir_path (str): [description]
-        """        
+    def set_audio_directory(self, dir_path: str) -> None:    
         self.set_yaml_dict_value_by_key(self.project_path, 'audio_directory', dir_path)
         
         
@@ -101,7 +86,7 @@ class Project():
 
 
     def create_project(self, project_name, project_path, wwise_project_path, ue4_project_path, audio_directory) -> None:
-        """[summary]
+        """Creates the project in the Project folder
         """
         self.project_path       = project_path
         self.wwise_project_path = wwise_project_path
